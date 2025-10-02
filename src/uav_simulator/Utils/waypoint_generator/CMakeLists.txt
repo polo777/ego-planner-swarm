@@ -36,10 +36,14 @@ endif()
 include_directories(include)
 
 add_executable(waypoint_generator src/waypoint_generator.cpp)
+add_executable(goal_relay src/goal_relay.cpp)
 
 ament_target_dependencies(waypoint_generator rclcpp tf2 tf2_geometry_msgs nav_msgs geometry_msgs)
+ament_target_dependencies(goal_relay rclcpp geometry_msgs)
 
-install(TARGETS waypoint_generator
+install(TARGETS 
+  waypoint_generator
+  goal_relay
   DESTINATION lib/${PROJECT_NAME}
 )
 

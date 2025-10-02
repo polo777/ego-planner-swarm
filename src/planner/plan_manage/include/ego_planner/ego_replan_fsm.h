@@ -64,6 +64,8 @@ namespace ego_planner
     bool flag_realworld_experiment_;
     bool enable_fail_safe_;
 
+    double goal_z_height_;
+
     /* planning data */
     bool have_trigger_, have_target_, have_odom_, have_new_target_, have_recv_pre_agent_;
     FSM_EXEC_STATE exec_state_;

@@ -23,6 +23,9 @@ namespace ego_planner
     node_->declare_parameter("fsm/realworld_experiment", false);
     node_->declare_parameter("fsm/fail_safe", true);
 
+    //MB:
+    node_->declare_parameter("fsm/goal_z_height", 0.1);
+
     node_->get_parameter("fsm/flight_type", target_type_);
     node_->get_parameter("fsm/thresh_replan_time", replan_thresh_);
     node_->get_parameter("fsm/thresh_no_replan_meter", no_replan_thresh_);
@@ -31,6 +34,9 @@ namespace ego_planner
     node_->get_parameter("fsm/emergency_time", emergency_time_);
     node_->get_parameter("fsm/realworld_experiment", flag_realworld_experiment_);
     node_->get_parameter("fsm/fail_safe", enable_fail_safe_);
+
+    //MB:
+    node_->get_parameter("fsm/goal_z_height", goal_z_height_);
 
     have_trigger_ = !flag_realworld_experiment_;
 
@@ -241,7 +247,7 @@ namespace ego_planner
 
     init_pt_ = odom_pos_;
 
-    Eigen::Vector3d end_wp(msg->pose.position.x, msg->pose.position.y, 1.0);
+    Eigen::Vector3d end_wp(msg->pose.position.x, msg->pose.position.y, goal_z_height_);
 
     planNextWaypoint(end_wp);
   }
