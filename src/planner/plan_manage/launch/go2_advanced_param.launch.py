@@ -8,7 +8,7 @@ def generate_launch_description():
     # LaunchConfigurations
     map_size_x = LaunchConfiguration('map_size_x_', default=42.0)
     map_size_y = LaunchConfiguration('map_size_y_', default=30.0)
-    map_size_z = LaunchConfiguration('map_size_z_', default=5.0)
+    map_size_z = LaunchConfiguration('map_size_z_', default=2.0)
     
     odometry_topic = LaunchConfiguration('odometry_topic', default='odom')
     camera_pose_topic = LaunchConfiguration('camera_pose_topic', default='camera_pose')
@@ -21,8 +21,8 @@ def generate_launch_description():
     fy = LaunchConfiguration('fy', default=387.229248046875)
     
     max_vel = LaunchConfiguration('max_vel', default=1.0)
-    max_acc = LaunchConfiguration('max_acc', default=3.0)
-    planning_horizon = LaunchConfiguration('planning_horizon', default=10.0)
+    max_acc = LaunchConfiguration('max_acc', default=1.0)
+    planning_horizon = LaunchConfiguration('planning_horizon', default=5.0)
     
     point_num = LaunchConfiguration('point_num', default=1)
     point0_x = LaunchConfiguration('point0_x', default=0.0)

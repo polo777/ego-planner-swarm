@@ -5,12 +5,17 @@
 #include "std_msgs/msg/empty.hpp"
 #include "visualization_msgs/msg/marker.hpp"
 #include <rclcpp/rclcpp.hpp>
+#include "geometry_msgs/msg/twist_stamped.hpp"
 
 rclcpp::Publisher<quadrotor_msgs::msg::PositionCommand>::SharedPtr pos_cmd_pub;
 
 quadrotor_msgs::msg::PositionCommand cmd;
 double pos_gain[3] = {0, 0, 0};
 double vel_gain[3] = {0, 0, 0};
+
+//MB
+geometry_msgs::msg::Twist cmd_vel;
+rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_pub;
 
 using ego_planner::UniformBspline;
 
@@ -226,9 +231,20 @@ void cmdCallback()
   cmd.yaw = yaw_yawdot.first;
   cmd.yaw_dot = yaw_yawdot.second;
 
-  last_yaw_ = cmd.yaw;
+  last_yaw_ = cmd.yaw_dot;
 
   pos_cmd_pub->publish(cmd);
+
+  //MB
+  cmd_vel.linear.x = cmd.velocity.x>0.01 ? cmd.velocity.x : 0.0;
+  cmd_vel.linear.y = cmd.velocity.y>0.01 ? cmd.velocity.y : 0.0;
+  cmd_vel.linear.z = 0.0;
+
+  cmd_vel.angular.z = cmd.yaw_dot>0.01 ? cmd.yaw_dot : 0.0;
+  cmd_vel.angular.y = 0.0;
+  cmd_vel.angular.x = 0.0;
+
+  cmd_vel_pub->publish(cmd_vel);
 }
 
 int main(int argc, char **argv)
@@ -243,6 +259,10 @@ int main(int argc, char **argv)
 
   pos_cmd_pub = node->create_publisher<quadrotor_msgs::msg::PositionCommand>(
       "/position_cmd",
+      50);
+  
+  cmd_vel_pub = node->create_publisher<geometry_msgs::msg::Twist>(
+      "/cmd_vel",
       50);
 
   auto cmd_timer = node->create_wall_timer(

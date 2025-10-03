@@ -16,7 +16,7 @@ def generate_launch_description():
     
     map_size_x = LaunchConfiguration('map_size_x', default = 50.0)
     map_size_y = LaunchConfiguration('map_size_y', default = 25.0)
-    map_size_z = LaunchConfiguration('map_size_z', default = 0.3)
+    map_size_z = LaunchConfiguration('map_size_z', default = 0.4)
     odom_topic = LaunchConfiguration('odom_topic', default = '/laser_odometry')
     
     
@@ -30,8 +30,7 @@ def generate_launch_description():
     odom_topic_cmd = DeclareLaunchArgument('odom_topic', default_value=odom_topic, description='Odometry topic')
 
     # Map properties and whether to use dynamic simulation
-    use_mockamap = LaunchConfiguration('use_mockamap', default=False) # map_generator or mockamap 
-    
+    use_mockamap = LaunchConfiguration('use_mockamap', default=False) # map_generator or mockamap   
     use_mockamap_cmd = DeclareLaunchArgument('use_mockamap', default_value=use_mockamap, description='Choose map type, map_generator or mockamap')
     
     use_dynamic = LaunchConfiguration('use_dynamic', default=False)  
@@ -121,9 +120,9 @@ def generate_launch_description():
             'cy': str(243.44969177246094),
             'fx': str(387.229248046875),
             'fy': str(387.229248046875),
-            'max_vel': str(2.0),
-            'max_acc': str(6.0),
-            'planning_horizon': str(7.5),
+            'max_vel': str(0.5),
+            'max_acc': str(2.0),
+            'planning_horizon': str(5.5),
             'use_distinctive_trajs': 'True',
             'flight_type': str(1), #MB changed from 2
             'point_num': str(4),
