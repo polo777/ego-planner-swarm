@@ -16,7 +16,7 @@ def generate_launch_description():
     
     map_size_x = LaunchConfiguration('map_size_x', default = 50.0)
     map_size_y = LaunchConfiguration('map_size_y', default = 25.0)
-    map_size_z = LaunchConfiguration('map_size_z', default = 0.50)
+    map_size_z = LaunchConfiguration('map_size_z', default = 5.0)
     odom_topic = LaunchConfiguration('odom_topic', default = 'visual_slam/odom')
     
     
